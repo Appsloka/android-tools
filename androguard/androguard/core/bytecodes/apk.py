@@ -297,7 +297,14 @@ class APK:
             m = magic.Magic(magic_file=self.magic_file)
             for i in self.get_files():
                 buffer = self.zip.read(i)
-                self.files[i] = m.from_buffer(buffer)
+                # If the file is xml, then it is encoded. Unpack it
+                # before detecting file type
+                try: 
+                    if i.lower().endswith('.xml'): 
+                        buffer = AXMLPrinter(buffer).get_buff()
+                except:
+                    pass 
+                self.files[i] = m.from_buffer(buffer)                    
                 self.files[i] = self._patch_magic(buffer, self.files[i])
                 self.files_crc32[i] = crc32(buffer)
 
