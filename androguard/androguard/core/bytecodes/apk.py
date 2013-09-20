@@ -1375,6 +1375,9 @@ class ARSCParser:
                                 elif a_res_type.get_type() == "color":
                                     c_value["color"].append(self.get_resource_color(ate))
 
+                                elif a_res_type.get_type() == "array":
+                                    c_value['array'].append(self.get_resource_array(ate))
+
                                 elif a_res_type.get_type() == "dimen":
                                     c_value["dimen"].append(self.get_resource_dimen(ate))
 
@@ -1386,6 +1389,19 @@ class ARSCParser:
 
     def get_resource_string(self, ate):
         return [ate.get_value(), ate.get_key_data()]
+
+    def get_resource_array(self, ate):
+        """
+        Added by Appsloka to get arrays as well...
+        """
+        # => ate has a complex element. ate-data -> complexresouce -> (id, simple ate)
+        strings = [] 
+        data = ate.item 
+        for item in data.items: 
+            ate1 = item[1] 
+            strings.append(ate1.get_data_value())
+        return [ate.get_value(), strings]
+
 
     def get_resource_id(self, ate):
         x = [ate.get_value()]
