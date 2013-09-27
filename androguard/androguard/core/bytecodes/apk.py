@@ -878,7 +878,7 @@ class AXMLParser:
             self.visited_ns = []
         else:
             self.valid_axml = False
-            androconf.warning("Not a valid xml file")
+            #androconf.warning("Not a valid xml file")
 
     def is_valid(self):
         return self.valid_axml
@@ -1437,7 +1437,7 @@ class ARSCParser:
         try:
             return [ate.get_value(), "%s%s" % (complexToFloat(ate.key.get_data()), DIMENSION_UNITS[ate.key.get_data() & COMPLEX_UNIT_MASK])]
         except Exception, why:
-            androconf.warning(why.__str__())
+            #androconf.warning(why.__str__())
             return [ate.get_value(), ate.key.get_data()]
 
     # FIXME
